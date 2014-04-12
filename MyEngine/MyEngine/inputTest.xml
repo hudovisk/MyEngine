@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<context>
+    <key value="W" pressed="true" message="1"/>
+    <key value="W" pressed="false" message="2"/>
+
+    <mouse value="MOTION" pressed="false" message="3">
+        <x inverted="false"/>
+        <y inverted="true"/>
+    </mouse>
+</context>
