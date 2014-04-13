@@ -8,7 +8,10 @@
 #pragma once
 
 #include "IEngine.h"
+#include "GameObjectFactory.h"
 #include "EventManagerImpl.h"
+#include "OpenGLRenderManager.h"
+
 #include "../../../testPlayer.h"
 
 class EngineImpl : public IEngine
@@ -28,8 +31,7 @@ private:
 	Engine::EngineState m_state;
 
 	IEventManager* m_eventManager;
+	IRenderManager* m_renderManager;
 
-	Player* m_player;
-	SDL_Window* m_window;
-	SDL_Surface* m_screenSurface;
+	GameObject m_player;
 };

@@ -19,13 +19,15 @@ public:
 	Vec3& operator=(const Vec3& rhs);
 
 	float dotProduct(const Vec3& rhs) const;
-
 	Vec3 crossProduct(const Vec3& rhs) const;
 
 	float magnitude() const;
 	float magnitudeSquared() const;
 
 	Vec3& normalize();
+
+	Vec3& inverse();
+	Vec3 getInverse() const;
 
 	Vec3(float x, float y, float z);
 	Vec3();

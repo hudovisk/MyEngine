@@ -1,4 +1,7 @@
-2014-04-11.22:54:23 [INFO] - ../Source/Core/Source/EngineImpl.cpp:58 - SDL initialized
-2014-04-11.22:54:23 [INFO] - ../Source/Core/Source/EngineImpl.cpp:64 - Event Manager initialized
-2014-04-11.22:54:23 [INFO] - ../Source/EventSystem/Source/EventManagerImpl.cpp:140 - Event Manager listenner added type = 0
-2014-04-11.22:54:25 [INFO] - ../Source/EventSystem/Source/EventManagerImpl.cpp:188 - Event queued type =  0
+2014-04-13.10:20:46 [INFO] - ../Source/RenderManager/Source/OpenGLRenderManager.cpp:29 - SDL initialized
+2014-04-13.10:20:46 [INFO] - ../Source/RenderManager/Source/OpenGLRenderManager.cpp:37 - GLEW initialized
+2014-04-13.10:20:46 [INFO] - ../Source/Core/Source/EngineImpl.cpp:50 - Render Manager initialized
+2014-04-13.10:20:46 [INFO] - ../Source/Core/Source/EngineImpl.cpp:59 - Event Manager initialized
+2014-04-13.10:20:46 [INFO] - ../Source/Components/Source/OpenGLRenderComponent.cpp:160 - Shaders loaded
+2014-04-13.10:20:46 [INFO] - ../Source/EventSystem/Source/EventManagerImpl.cpp:140 - Event Manager listenner added type = 0
+2014-04-13.10:21:03 [INFO] - ../Source/EventSystem/Source/EventManagerImpl.cpp:188 - Event queued type =  0

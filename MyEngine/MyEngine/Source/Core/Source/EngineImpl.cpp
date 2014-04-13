@@ -13,7 +13,7 @@
 
 EngineImpl::EngineImpl() :
 	m_bInitialised(false), m_state(Engine::NOT_STARTED), m_eventManager(nullptr),
-	m_player(nullptr), m_window(nullptr), m_screenSurface(nullptr)
+	m_renderManager(nullptr)
 {
 }
 
@@ -26,9 +26,7 @@ bool EngineImpl::destroy()
 {
 	m_eventManager->destroy();
 
-	SDL_DestroyWindow( m_window );
-
-	SDL_Quit();
+	m_renderManager->destroy();
 
 	Logger::destroy();
 
@@ -44,29 +42,27 @@ bool EngineImpl::init()
 {
 	Logger::init("log.txt",ALL);
 
-	int status = SDL_Init(SDL_INIT_EVERYTHING);
+	m_renderManager = new OpenGLRenderManager();
+	if(nullptr == m_renderManager || !m_renderManager->init())
+	{
+		ASSERT(false,"Render Manager initialization error");
+	}
+	LOG(INFO, "Render Manager initialized");
 
-	ASSERT(status != -1,"SDL init error: "<<SDL_GetError());
 
-	m_window = SDL_CreateWindow( "My Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_SHOWN );
-	//Get window surface
-	m_screenSurface = SDL_GetWindowSurface( m_window );
-	//Fill the surface white
-	SDL_FillRect( m_screenSurface, NULL, SDL_MapRGB( m_screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-	//Update the surface
-	SDL_UpdateWindowSurface( m_window );
-	LOG(INFO, "SDL initialized");
+
 	m_eventManager = new EventManagerImpl();
 	if(nullptr == m_eventManager || !m_eventManager->init())
 	{
-		ASSERT(false,"EventManager initialization error");
+		ASSERT(false,"Event Manager initialization error");
 	}
 	LOG(INFO, "Event Manager initialized");
-	m_player = new Player();
-	if(nullptr == m_player)
+
+
+
+	if(!GameObjectFactory::createPlayer(&m_player))
 	{
-		ASSERT(false,"Player initialization error");
-		return false;
+		ASSERT(false, "Player initialization error");
 	}
 
 	m_bInitialised = true;
@@ -86,9 +82,15 @@ void EngineImpl::mainLoop()
 	float updateTime = 0;
 	while(m_state == Engine::RUNNING)
 	{
-		m_player->update(updateTime);
+		m_player.update();
 
 		m_eventManager->dispatchEvents();
+
+		m_renderManager->preRender();
+
+		m_player.render();
+
+		m_renderManager->postRender();
 
 		auto now = high_resolution_clock::now();
 		updateTime = static_cast<float>( (now - last).count() * duration::period::num ) / duration::period::den; //conversão da diferença para segundos.
