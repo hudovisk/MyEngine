@@ -86,6 +86,20 @@ Vec3& Vec3::normalize()
 	return *this;
 }
 
+Vec3& Vec3::inverse()
+{
+	m_data[0] = -m_data[0];
+	m_data[1] = -m_data[1];
+	m_data[2] = -m_data[2];
+
+	return *this;
+}
+
+Vec3 Vec3::getInverse() const
+{
+	return Vec3(-m_data[0],-m_data[1],-m_data[2]);
+}
+
 Vec3::Vec3(float x, float y, float z)
 {
 	m_data[0] = x;
